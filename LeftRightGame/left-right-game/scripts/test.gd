@@ -1,16 +1,49 @@
 extends Control
 
-enum state { game_start, game_in_progress, game_finished }
-var currentState = state.game_start
+enum game_state { game_start, game_in_progress, game_finished }
+var currentState = game_state.game_start
+
+var direction = ["Left", "Right"]
+var direction_needed
+
+enum cycle_state { get_direction, wait_for_user_input, decision }
+var current_cycle_state = cycle_state.get_direction
+
+var has_acquired_direction_for_this_cycle = false
+var has_user_input_for_this_cycle = false
 
 func _ready():
-	print("test.gd ready")
+	pass
 
 func _process(_delta):
 	inputControl()
+	if (has_acquired_direction_for_this_cycle == false):
+		direction_needed = get_direction()
+		print("Direction Needed: " + direction_needed)
+		has_acquired_direction_for_this_cycle = true
+	if (has_user_input_for_this_cycle == false):
+		if (Input.is_action_just_pressed("game_action_left") and direction_needed == "Left"):
+			print ("Left is Correct!")
+			has_acquired_direction_for_this_cycle = false
+			has_user_input_for_this_cycle = true
+		elif (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right"):
+			print ("Right is Correct!")
+			has_acquired_direction_for_this_cycle = false
+			has_user_input_for_this_cycle = true
+		elif ((Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
+			print ("Right is Wrong!")
+			has_acquired_direction_for_this_cycle = false
+			has_user_input_for_this_cycle = true
+		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right")):
+			print ("Left is Wrong!")
+			has_acquired_direction_for_this_cycle = false
+			has_user_input_for_this_cycle = true
+
+func get_direction(): # Picks a random direction (left or right) whenver this function is called
+	return direction[randi() % direction.size()]
 
 func inputControl():
 	if Input.is_action_just_pressed("game_action_left"):
-		print("Left")
+		print("User Entered: Left")
 	if Input.is_action_just_pressed("game_action_right"):
-		print("Right")
+		print("User Entered: Right")
