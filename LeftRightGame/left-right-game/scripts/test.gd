@@ -20,22 +20,23 @@ func _process(_delta):
 	if (has_acquired_direction_for_this_cycle == false):
 		direction_needed = get_direction()
 		print("Direction Needed: " + direction_needed)
+		has_user_input_for_this_cycle = false
 		has_acquired_direction_for_this_cycle = true
 	if (has_user_input_for_this_cycle == false):
 		if (Input.is_action_just_pressed("game_action_left") and direction_needed == "Left"):
-			print ("Left is Correct!")
+			print_rich ("[color=green]Left is Correct!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
 		elif (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right"):
-			print ("Right is Correct!")
+			print_rich ("[color=green]Right is Correct!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
 		elif ((Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
-			print ("Right is Wrong!")
+			print_rich ("[color=red]Right is Wrong!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
 		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right")):
-			print ("Left is Wrong!")
+			print_rich ("[color=red]Left is Wrong!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
 
