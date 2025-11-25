@@ -23,14 +23,16 @@ func _process(_delta):
 		has_user_input_for_this_cycle = false
 		has_acquired_direction_for_this_cycle = true
 	if (has_user_input_for_this_cycle == false):
+		# User's answer is correct
 		if ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Left") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right")):
 			print_rich ("[color=green]Correct!\n")
-			has_acquired_direction_for_this_cycle = false
-			has_user_input_for_this_cycle = true
+			has_acquired_direction_for_this_cycle = false # gets a new randomized direction
+			has_user_input_for_this_cycle = true 
+		# User's answer is wrong
 		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
-			print_rich ("[color=red]Wrong!\n")
-			has_acquired_direction_for_this_cycle = false
-			has_user_input_for_this_cycle = true
+			print_rich ("[color=red]Wrong! Answer again.")
+			#has_acquired_direction_for_this_cycle = false # absence of these assignments stops the cycle from getting a new randomized direction
+			#has_user_input_for_this_cycle = true
 
 func get_direction(): # Picks a random direction (left or right) whenver this function is called
 	return direction[randi() % direction.size()]
