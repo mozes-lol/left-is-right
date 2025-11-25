@@ -1,5 +1,7 @@
 extends Control
 
+@onready var game_timer = $GameTimer
+
 enum game_state { game_start, game_in_progress, game_finished }
 var currentState = game_state.game_start
 
@@ -14,6 +16,7 @@ var has_user_input_for_this_cycle = false
 
 func _ready():
 	pass
+	game_timer.start()
 
 func _process(_delta):
 	inputControl()
@@ -39,7 +42,11 @@ func get_direction(): # Picks a random direction (left or right) whenver this fu
 
 func inputControl():
 	# This is used to detect input, mainly for debugging purposes langs
-	if Input.is_action_just_pressed("game_action_left"):
-		print("User Entered: Left")
-	if Input.is_action_just_pressed("game_action_right"):
-		print("User Entered: Right")
+	#if Input.is_action_just_pressed("game_action_left"):
+		#print("User Entered: Left")
+	#if Input.is_action_just_pressed("game_action_right"):
+		#print("User Entered: Right")
+	pass
+
+func _on_game_timer_timeout() -> void:
+	print("TIME IS UP")
