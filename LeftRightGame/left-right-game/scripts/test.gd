@@ -23,20 +23,12 @@ func _process(_delta):
 		has_user_input_for_this_cycle = false
 		has_acquired_direction_for_this_cycle = true
 	if (has_user_input_for_this_cycle == false):
-		if (Input.is_action_just_pressed("game_action_left") and direction_needed == "Left"):
-			print_rich ("[color=green]Left is Correct!\n")
+		if ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Left") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right")):
+			print_rich ("[color=green]Correct!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
-		elif (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right"):
-			print_rich ("[color=green]Right is Correct!\n")
-			has_acquired_direction_for_this_cycle = false
-			has_user_input_for_this_cycle = true
-		elif ((Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
-			print_rich ("[color=red]Right is Wrong!\n")
-			has_acquired_direction_for_this_cycle = false
-			has_user_input_for_this_cycle = true
-		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right")):
-			print_rich ("[color=red]Left is Wrong!\n")
+		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
+			print_rich ("[color=red]Wrong!\n")
 			has_acquired_direction_for_this_cycle = false
 			has_user_input_for_this_cycle = true
 
@@ -44,6 +36,7 @@ func get_direction(): # Picks a random direction (left or right) whenver this fu
 	return direction[randi() % direction.size()]
 
 func inputControl():
+	# This is used to detect input, mainly for debugging purposes langs
 	if Input.is_action_just_pressed("game_action_left"):
 		print("User Entered: Left")
 	if Input.is_action_just_pressed("game_action_right"):
