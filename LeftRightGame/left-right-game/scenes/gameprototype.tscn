@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://rgcd5atxvvjx"]
 
-[ext_resource type="Script" uid="uid://dm7fn7ygmam8j" path="res://scripts/test.gd" id="1_fqgil"]
+[ext_resource type="Script" uid="uid://dm7fn7ygmam8j" path="res://scripts/game.gd" id="1_fqgil"]
 
 [node name="Node2D" type="Node2D"]
 
