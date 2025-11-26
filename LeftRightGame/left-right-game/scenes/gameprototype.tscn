@@ -16,6 +16,9 @@ wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 
+[node name="PenaltyTimer" type="Timer" parent="Control"]
+wait_time = 2.0
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 14
 anchor_top = 0.5
@@ -39,3 +42,4 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="timeout" from="Control/GameTimer" to="Control" method="_on_game_timer_timeout"]
+[connection signal="timeout" from="Control/PenaltyTimer" to="Control" method="_on_penalty_timer_timeout"]
