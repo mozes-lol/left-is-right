@@ -2,49 +2,40 @@
 
 [ext_resource type="Script" uid="uid://dm7fn7ygmam8j" path="res://scripts/game.gd" id="1_fqgil"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Game" type="Node" parent="."]
 script = ExtResource("1_fqgil")
 
-[node name="GameTimer" type="Timer" parent="Control"]
+[node name="GameTimer" type="Timer" parent="Game"]
 wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 
-[node name="PenaltyTimer" type="Timer" parent="Control"]
+[node name="PenaltyTimer" type="Timer" parent="Game"]
 wait_time = 2.0
 one_shot = true
 
-[node name="ReadyTimer" type="Timer" parent="Control"]
+[node name="ReadyTimer" type="Timer" parent="Game"]
 one_shot = true
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 14
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_right = 97.0
-offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(4, 4)
-size_flags_vertical = 1
-text = "This is a text"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="timeout" from="Control/GameTimer" to="Control" method="_on_game_timer_timeout"]
-[connection signal="timeout" from="Control/PenaltyTimer" to="Control" method="_on_penalty_timer_timeout"]
-[connection signal="timeout" from="Control/ReadyTimer" to="Control" method="_on_ready_timer_timeout"]
+[connection signal="timeout" from="Game/GameTimer" to="Game" method="_on_game_timer_timeout"]
+[connection signal="timeout" from="Game/PenaltyTimer" to="Game" method="_on_penalty_timer_timeout"]
+[connection signal="timeout" from="Game/ReadyTimer" to="Game" method="_on_ready_timer_timeout"]

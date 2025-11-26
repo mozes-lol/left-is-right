@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 @onready var game_timer = $GameTimer
 @onready var penalty_timer = $PenaltyTimer
