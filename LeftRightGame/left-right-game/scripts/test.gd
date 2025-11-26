@@ -33,6 +33,7 @@ func _process(_delta):
 	match current_round_state:
 		round_state.ready:
 			print("Round " + str(round))
+			print("Goal: " + str(required_right_answers))
 			print("Ready...")
 			ready_timer.start()
 			current_round_state = null # Stop the current state from looping and let ready timer do its thing
