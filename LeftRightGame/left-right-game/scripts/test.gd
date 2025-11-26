@@ -11,8 +11,15 @@ var direction_needed
 enum cycle_state { get_direction, wait_for_user_input, decision }
 var current_cycle_state = cycle_state.get_direction
 
+var initiating_new_round = true
+var round = 0
+var required_right_answers
+var current_right_answers
+
 var has_acquired_direction_for_this_cycle = false
 var has_user_input_for_this_cycle = false
+
+
 
 func _ready():
 	pass
@@ -20,6 +27,11 @@ func _ready():
 
 func _process(_delta):
 	inputControl()
+	if (initiating_new_round == true):
+		round += 1
+		required_right_answers = 10
+		current_right_answers = 0
+		initiating_new_round == false
 	if (has_acquired_direction_for_this_cycle == false):
 		direction_needed = get_direction()
 		print("Direction Needed: " + direction_needed)
@@ -30,12 +42,18 @@ func _process(_delta):
 		if ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Left") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Right")):
 			print_rich ("[color=green]Correct!\n")
 			has_acquired_direction_for_this_cycle = false # gets a new randomized direction
-			has_user_input_for_this_cycle = true 
+			has_user_input_for_this_cycle = true
+			current_right_answers += 1
 		# User's answer is wrong
 		elif ((Input.is_action_just_pressed("game_action_left") and direction_needed == "Right") or (Input.is_action_just_pressed("game_action_right") and direction_needed == "Left")):
 			print_rich ("[color=red]Wrong! Answer again.")
 			#has_acquired_direction_for_this_cycle = false # absence of these assignments stops the cycle from getting a new randomized direction
 			#has_user_input_for_this_cycle = true
+	if (current_right_answers >= required_right_answers):
+		initiating_new_round = true
+		print("Round Complete!")
+	else:
+		print("In progress: " + str(current_right_answers) + "/" + str(required_right_answers))
 
 func get_direction(): # Picks a random direction (left or right) whenver this function is called
 	return direction[randi() % direction.size()]
