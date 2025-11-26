@@ -16,6 +16,9 @@ wait_time = 2.0
 one_shot = true
 ignore_time_scale = true
 
+[node name="PenaltyTimer" type="Timer" parent="Control"]
+wait_time = 2.0
+
 [node name="Label" type="Label" parent="."]
 anchors_preset = 14
 anchor_top = 0.5
