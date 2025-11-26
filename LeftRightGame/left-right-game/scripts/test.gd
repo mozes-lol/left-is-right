@@ -11,15 +11,9 @@ var direction_needed
 enum cycle_state { get_direction, wait_for_user_input, decision }
 var current_cycle_state = cycle_state.get_direction
 
-var initiating_new_round = true
 var round = 1
 var required_right_answers = 10
 var current_right_answers = 0
-
-var has_acquired_direction_for_this_cycle = false
-var has_user_input_for_this_cycle = false
-
-
 
 func _ready():
 	pass
@@ -48,7 +42,6 @@ func get_direction(): # Picks a random direction (left or right) whenver this fu
 
 func check_round_progress():
 	if (current_right_answers >= required_right_answers):
-		initiating_new_round = true
 		print("Round Complete!")
 	else:
 		print("Round: " + str(round))
