@@ -13,8 +13,8 @@ var current_cycle_state = cycle_state.get_direction
 
 var initiating_new_round = true
 var round = 0
-var required_right_answers
-var current_right_answers
+var required_right_answers = 0
+var current_right_answers = 0
 
 var has_acquired_direction_for_this_cycle = false
 var has_user_input_for_this_cycle = false
@@ -26,13 +26,14 @@ func _ready():
 	game_timer.start()
 
 func _process(_delta):
-	inputControl()
+	input_control()
 	if (initiating_new_round == true):
 		round += 1
 		required_right_answers = 10
 		current_right_answers = 0
 		initiating_new_round == false
 	if (has_acquired_direction_for_this_cycle == false):
+		check_round_progress()
 		direction_needed = get_direction()
 		print("Direction Needed: " + direction_needed)
 		has_user_input_for_this_cycle = false
@@ -49,16 +50,19 @@ func _process(_delta):
 			print_rich ("[color=red]Wrong! Answer again.")
 			#has_acquired_direction_for_this_cycle = false # absence of these assignments stops the cycle from getting a new randomized direction
 			#has_user_input_for_this_cycle = true
-	if (current_right_answers >= required_right_answers):
-		initiating_new_round = true
-		print("Round Complete!")
-	else:
-		print("In progress: " + str(current_right_answers) + "/" + str(required_right_answers))
 
 func get_direction(): # Picks a random direction (left or right) whenver this function is called
 	return direction[randi() % direction.size()]
 
-func inputControl():
+func check_round_progress():
+	if (current_right_answers >= required_right_answers):
+		initiating_new_round = true
+		print("Round Complete!")
+	else:
+		print("Round: " + str(round))
+		print("In progress: " + str(current_right_answers) + "/" + str(required_right_answers))
+
+func input_control():
 	# This is used to detect input, mainly for debugging purposes langs
 	#if Input.is_action_just_pressed("game_action_left"):
 		#print("User Entered: Left")
@@ -67,4 +71,5 @@ func inputControl():
 	pass
 
 func _on_game_timer_timeout() -> void:
-	print("TIME IS UP")
+	#print("TIME IS UP")
+	pass
